@@ -1,0 +1,8 @@
+# requirements.in
+aiogram
+aiogram_dialog
+fluentogram
+redis
+environs
+sqlalchemy
+asyncpg
