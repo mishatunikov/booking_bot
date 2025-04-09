@@ -4,8 +4,12 @@ import logging
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
+from fluentogram import TranslatorHub
+
 from config_data.config import Config, load_config
 from fsm import storage
+from middlewares.outer import TranslatorRunnerMiddleware
+from utils.i18n import create_translator_hub
 
 logger = logging.getLogger(__name__)
 
@@ -26,17 +30,16 @@ async def main():
     )
     dp = Dispatcher(storage=storage)
 
-    # dp.workflow_data.update(...)
+    translator_hub: TranslatorHub = create_translator_hub()
+    dp.workflow_data.update(
+        {'config': config, '_translator_hub': translator_hub}
+    )
 
-    # Регистриуем роутеры
     logger.info('Подключаем роутеры')
-    # ...
 
-    # Регистрируем миддлвари
     logger.info('Подключаем миддлвари')
-    # ...
+    dp.update.middleware(TranslatorRunnerMiddleware())
 
-    # await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
 
 
