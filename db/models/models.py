@@ -41,9 +41,9 @@ class Reserve(Base):
     user_id: Mapped[int] = mapped_column(
         ForeignKey('users.tg_id'), nullable=False
     )
-    customer_name: Mapped[str]
-    time_reserve: Mapped[datetime]
+    reservation_name: Mapped[str]
+    reservation_time: Mapped[datetime]
+    person_count: Mapped[int]
     created_at: Mapped[datetime] = mapped_column(server_default=func.now())
 
-    # Связь с пользователем
     user: Mapped[User] = relationship(back_populates="reserves", lazy="joined")
