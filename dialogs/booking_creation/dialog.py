@@ -17,13 +17,14 @@ from dialogs.booking_creation.getters import (
     select_date_getter,
     select_time_getter,
     ask_name_getter,
+    select_persons_getter,
 )
 from dialogs.booking_creation.handlers import (
     change_page,
-    confirm_booking,
     correct_input,
     incorrect_input,
     not_text_input,
+    select_person,
 )
 from dialogs.booking_creation.states import BookingCreationSG
 from dialogs.booking_creation.handlers import select_date, select_time
@@ -103,6 +104,22 @@ booking_creation = Dialog(
         ),
         getter=ask_name_getter,
         state=BookingCreationSG.input_name,
+    ),
+    Window(
+        Format('{select_persons_count}'),
+        Group(
+            Select(
+                Format('{item[0]}'),
+                id='count_persons',
+                item_id_getter=lambda x: x[1],
+                items='count_persons',
+                on_click=select_person,
+            ),
+            width=consts.WIDTH_PERSON_BUTTONS,
+        ),
+        Back(Format('{back}'), id='cancel_input_name'),
+        state=BookingCreationSG.select_persons_count,
+        getter=select_persons_getter,
     ),
     # Window(
     #     Format('{confirm_booking_text}'),
