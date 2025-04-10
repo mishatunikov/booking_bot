@@ -7,7 +7,7 @@ from fluentogram import TranslatorRunner
 from .consts import MAX_NUMBER_OF_DATES, DATES_ON_PAGE
 
 
-async def main_page_getter(
+async def select_date_getter(
     dialog_manager: DialogManager,
     event_from_user: User,
     i18n: TranslatorRunner,
@@ -28,7 +28,7 @@ async def main_page_getter(
             )
         )
     return {
-        'main_page_text': i18n.booking.creation.select.date(),
+        'select_date_text': i18n.booking.creation.select.date(),
         'main_menu': i18n.back(),
         'days_for_booking': days_for_booking,
         'have_next': days_off < MAX_NUMBER_OF_DATES,
