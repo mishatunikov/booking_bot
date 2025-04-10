@@ -51,7 +51,6 @@ async def select_time_getter(
     times_on_page = consts.BUTTONS_TIMES[
         page * consts.TIMES_ON_PAGE : (page + 1) * consts.TIMES_ON_PAGE
     ]
-
     return {
         'select_time_text': i18n.booking.creation.select.time(),
         'back': i18n.back(),
@@ -85,4 +84,38 @@ async def select_persons_getter(
         'select_persons_count': i18n.select.person.count(),
         'back': i18n.back(),
         'count_persons': count_persons,
+    }
+
+
+async def confirm_booking_getter(
+    dialog_manager: DialogManager,
+    event_from_user: User,
+    i18n: TranslatorRunner,
+    **kwargs,
+):
+    name = dialog_manager.dialog_data.get('reservation_name')
+    reserved_data = dialog_manager.dialog_data.get('reserved_date')
+    reserved_time = dialog_manager.dialog_data.get('reserved_time')
+    persons_count = dialog_manager.dialog_data.get('person_count')
+
+    return {
+        'confirm_booking_text': i18n.booking.confirmation(
+            name=f'<b>{name}</b>',
+            date=f'<b>{reserved_data} {reserved_time}</b>',
+            persons_count=f'<b>{persons_count}</b>',
+        ),
+        'not_confirm': i18n.click.no(),
+        'confirm': i18n.click.yes(),
+    }
+
+
+async def success_booking_getter(
+    dialog_manager: DialogManager,
+    event_from_user: User,
+    i18n: TranslatorRunner,
+    **kwargs,
+):
+    return {
+        'success_booking_text': i18n.success.booking(),
+        'back_to_main_menu': i18n.back.to.main.menu(),
     }
