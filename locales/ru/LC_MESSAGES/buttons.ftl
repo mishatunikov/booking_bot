@@ -4,3 +4,5 @@ cancel = Отмена ✖️
 back = Назад 🔙
 previous = ⬅️
 next = ➡️
+click_yes = Да ✅
+click_no = Нет ❌
