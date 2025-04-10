@@ -22,9 +22,11 @@ async def main_page_getter(
 
     for i in range(DATES_ON_PAGE * page, end_range):
         days_for_booking.append(
-            ((datetime.today() + timedelta(days=i)).strftime('%d.%m'), i)
+            (
+                (datetime.today() + timedelta(days=i)).strftime('%d.%m'),
+                (datetime.today() + timedelta(days=i)).date(),
+            )
         )
-
     return {
         'main_page_text': i18n.booking.creation.main.page(),
         'main_menu': i18n.cancel(),
