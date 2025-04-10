@@ -12,3 +12,6 @@ BUTTONS_TIMES: list[tuple[str, int]] = [
 ]
 
 MAX_NAME_LENGTH = 20
+
+RANGE_PERSONS = 15
+WIDTH_PERSON_BUTTONS = 5
