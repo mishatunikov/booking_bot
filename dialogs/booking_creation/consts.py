@@ -10,3 +10,5 @@ WIDTH_TIME_BUTTONS = 3
 BUTTONS_TIMES: list[tuple[str, int]] = [
     (f'{time}:00', time) for time in range(TIME_OPEN, TIME_CLOSE)
 ]
+
+MAX_NAME_LENGTH = 20
