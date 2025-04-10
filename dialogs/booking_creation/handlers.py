@@ -8,6 +8,7 @@ from fluentogram import TranslatorRunner
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from dialogs.booking_creation.states import BookingCreationSG
+from db.models import Reserve, User
 
 
 async def change_page(
@@ -83,9 +84,27 @@ async def select_person(
     await dialog_manager.switch_to(BookingCreationSG.confirmation)
 
 
-# async def confirm_booking(
-#     callback: CallbackQuery,
-#     widget: Button,
-#     dialog_manager: DialogManager,
-# ):
-#     session: AsyncSession = dialog_manager.middleware_data.get('session')
+async def confirm_booking(
+    callback: CallbackQuery,
+    widget: Button,
+    dialog_manager: DialogManager,
+):
+    i18n: TranslatorRunner = dialog_manager.middleware_data.get('i18n')
+    session: AsyncSession = dialog_manager.middleware_data.get('session')
+    user: User = dialog_manager.middleware_data.get('user')
+    reservation_datetime = datetime.strptime(
+        f'{dialog_manager.dialog_data.get('reserved_date')} {dialog_manager.dialog_data.get('reserved_time')}',
+        '%Y-%m-%d %H:%M',
+    )
+    session.add(
+        Reserve(
+            reservation_name=dialog_manager.dialog_data.get(
+                'reservation_name'
+            ),
+            reservation_time=reservation_datetime,
+            person_count=dialog_manager.dialog_data.get('person_count'),
+            user_id=user.tg_id,
+        )
+    )
+    await session.commit()
+    await dialog_manager.switch_to(BookingCreationSG.success_booking)
