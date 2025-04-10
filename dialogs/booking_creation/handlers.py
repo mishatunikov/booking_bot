@@ -79,7 +79,8 @@ async def select_person(
     dialog_manager: DialogManager,
     item_id: str,
 ):
-    pass
+    dialog_manager.dialog_data.update({'person_count': int(item_id)})
+    await dialog_manager.switch_to(BookingCreationSG.confirmation)
 
 
 # async def confirm_booking(
