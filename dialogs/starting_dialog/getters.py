@@ -9,9 +9,12 @@ async def introduction_getter(
     i18n: TranslatorRunner,
     **kwargs,
 ):
-    data = int(bool(dialog_manager.start_data))
+    text_selection = int(bool(dialog_manager.start_data))
+    if dialog_manager.start_data:
+        dialog_manager.start_data.clear()
+
     menu_text = i18n.main.menu(
-        start_data=data,
+        start_data=text_selection,
         name=event_from_user.first_name,
     )
 
