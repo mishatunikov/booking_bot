@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from aiogram.types import CallbackQuery
 from aiogram_dialog import Dialog, DialogManager
 from aiogram_dialog.widgets.kbd import Button
@@ -14,4 +16,6 @@ async def start_next_dialog(
         'booking_check': BookingCheckSG,
     }
     state_group = id_next_sg.get(widget.widget_id)
-    await dialog_manager.start(state_group.main_page)
+    await dialog_manager.start(
+        state_group.main_page, data={'dates_page': 0, 'times_page': 0}
+    )
