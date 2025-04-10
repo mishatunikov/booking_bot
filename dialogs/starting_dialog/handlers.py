@@ -12,10 +12,10 @@ async def start_next_dialog(
     callback: CallbackQuery, widget: Button, dialog_manager: DialogManager
 ):
     id_next_sg = {
-        'booking_creation': BookingCreationSG,
-        'booking_check': BookingCheckSG,
+        'booking_creation': BookingCreationSG.select_date,
+        'booking_check': BookingCheckSG.main_page,
     }
-    state_group = id_next_sg.get(widget.widget_id)
+    state = id_next_sg.get(widget.widget_id)
     await dialog_manager.start(
-        state_group.main_page, data={'dates_page': 0, 'times_page': 0}
+        state=state, data={'dates_page': 0, 'times_page': 0}
     )
