@@ -16,6 +16,7 @@ def create_translator_hub() -> TranslatorHub:
                     locale='ru-RU',
                     filenames=[
                         'locales/ru/LC_MESSAGES/lexicon.ftl',
+                        'locales/ru/LC_MESSAGES/buttons.ftl',
                     ],
                 ),
             ),
