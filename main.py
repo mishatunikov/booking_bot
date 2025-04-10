@@ -6,15 +6,22 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram_dialog import setup_dialogs
 from fluentogram import TranslatorHub
+from sqlalchemy.ext.asyncio import async_sessionmaker
 
 from config_data.config import Config, load_config
+from db.models.base import Base
 from fsm import storage
-from middlewares.outer import TranslatorRunnerMiddleware
+from middlewares.outer import (
+    TranslatorRunnerMiddleware,
+    TrackUserMiddleware,
+    DbSessionMiddleware,
+)
 from utils.i18n import create_translator_hub
 from handlers.user_handlers import router as user_router
 
 from dialogs.booking_creation import booking_creation
 from dialogs.starting_dialog import starting_dialog
+from db.connection import engine
 
 logger = logging.getLogger(__name__)
 
@@ -33,6 +40,14 @@ async def main():
         token=config.bot.bot_token,
         default=DefaultBotProperties(parse_mode=ParseMode.HTML),
     )
+
+    logger.info('Создаем таблицы в БД.')
+    async with engine.begin() as connection:
+        await connection.run_sync(Base.metadata.create_all)
+
+    session_generator = async_sessionmaker(
+        engine, autoflush=True, expire_on_commit=False
+    )
     dp = Dispatcher(storage=storage)
 
     translator_hub: TranslatorHub = create_translator_hub()
@@ -46,6 +61,9 @@ async def main():
 
     logger.info('Подключаем миддлвари')
     dp.update.middleware(TranslatorRunnerMiddleware())
+    dp.update.middleware(DbSessionMiddleware(session_generator))
+    dp.message.outer_middleware(TrackUserMiddleware())
+    dp.callback_query.outer_middleware(TrackUserMiddleware())
 
     await dp.start_polling(bot)
 
