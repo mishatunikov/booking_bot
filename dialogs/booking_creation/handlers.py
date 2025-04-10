@@ -34,7 +34,7 @@ async def select_date(
     dialog_manager: DialogManager,
     item_id: str,
 ):
-    await dialog_manager.update({'reserved_date': item_id})
+    dialog_manager.dialog_data.update({'reserved_date': item_id})
     await dialog_manager.switch_to(BookingCreationSG.select_time)
 
 
@@ -44,7 +44,7 @@ async def select_time(
     dialog_manager: DialogManager,
     item_id: str,
 ):
-    await dialog_manager.update({'reserved_time': item_id})
+    dialog_manager.dialog_data.update({'reserved_time': item_id})
     await dialog_manager.switch_to(BookingCreationSG.input_name)
 
 
@@ -53,7 +53,10 @@ async def correct_input(
     widget: MessageInput,
     dialog_manager: DialogManager,
 ):
-    pass
+    dialog_manager.dialog_data.update({'reservation_name': message.text})
+    await dialog_manager.switch_to(
+        BookingCreationSG.select_persons_count,
+    )
 
 
 async def incorrect_input(
@@ -68,6 +71,15 @@ async def not_text_input(
 ):
     i18n: TranslatorRunner = dialog_manager.middleware_data.get('i18n')
     await message.answer(text=i18n.no.text.inpute)
+
+
+async def select_person(
+    callback: CallbackQuery,
+    widget: Select,
+    dialog_manager: DialogManager,
+    item_id: str,
+):
+    pass
 
 
 # async def confirm_booking(
