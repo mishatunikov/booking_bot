@@ -7,3 +7,4 @@ class BookingCreationSG(StatesGroup):
     input_name = State()
     select_persons_count = State()
     confirmation = State()
+    success_booking = State()
