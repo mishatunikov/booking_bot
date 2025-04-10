@@ -63,3 +63,12 @@ async def select_time_getter(
         'next': i18n.next(),
         'previous': i18n.previous(),
     }
+
+
+async def ask_name_getter(
+    dialog_manager: DialogManager,
+    event_from_user: User,
+    i18n: TranslatorRunner,
+    **kwargs,
+):
+    return {'ask_name': i18n.ask.name(), 'back': i18n.back()}
