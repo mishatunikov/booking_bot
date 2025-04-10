@@ -72,3 +72,17 @@ async def ask_name_getter(
     **kwargs,
 ):
     return {'ask_name': i18n.ask.name(), 'back': i18n.back()}
+
+
+async def select_persons_getter(
+    dialog_manager: DialogManager,
+    event_from_user: User,
+    i18n: TranslatorRunner,
+    **kwargs,
+):
+    count_persons = [(num, num) for num in range(1, consts.RANGE_PERSONS + 1)]
+    return {
+        'select_persons_count': i18n.select.person.count(),
+        'back': i18n.back(),
+        'count_persons': count_persons,
+    }
