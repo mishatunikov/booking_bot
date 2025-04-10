@@ -1,8 +1,11 @@
 from datetime import datetime
 
-from aiogram.types import CallbackQuery
+from aiogram.types import CallbackQuery, Message
 from aiogram_dialog import DialogManager
+from aiogram_dialog.widgets.input import MessageInput
 from aiogram_dialog.widgets.kbd import Button, Select
+from fluentogram import TranslatorRunner
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from dialogs.booking_creation.states import BookingCreationSG
 
@@ -31,7 +34,7 @@ async def select_date(
     dialog_manager: DialogManager,
     item_id: str,
 ):
-    await dialog_manager.update({'selected_date': item_id})
+    await dialog_manager.update({'reserved_date': item_id})
     await dialog_manager.switch_to(BookingCreationSG.select_time)
 
 
@@ -41,4 +44,35 @@ async def select_time(
     dialog_manager: DialogManager,
     item_id: str,
 ):
+    await dialog_manager.update({'reserved_time': item_id})
+    await dialog_manager.switch_to(BookingCreationSG.input_name)
+
+
+async def correct_input(
+    message: Message,
+    widget: MessageInput,
+    dialog_manager: DialogManager,
+):
     pass
+
+
+async def incorrect_input(
+    message: Message, widget: MessageInput, dialog_manager: DialogManager
+):
+    i18n: TranslatorRunner = dialog_manager.middleware_data.get('i18n')
+    await message.answer(text=i18n.incorrect.input.name())
+
+
+async def not_text_input(
+    message: Message, widget: MessageInput, dialog_manager: DialogManager
+):
+    i18n: TranslatorRunner = dialog_manager.middleware_data.get('i18n')
+    await message.answer(text=i18n.no.text.inpute)
+
+
+# async def confirm_booking(
+#     callback: CallbackQuery,
+#     widget: Button,
+#     dialog_manager: DialogManager,
+# ):
+#     session: AsyncSession = dialog_manager.middleware_data.get('session')
