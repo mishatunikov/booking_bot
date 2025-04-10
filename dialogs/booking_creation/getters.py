@@ -28,8 +28,8 @@ async def main_page_getter(
             )
         )
     return {
-        'main_page_text': i18n.booking.creation.main.page(),
-        'main_menu': i18n.cancel(),
+        'main_page_text': i18n.booking.creation.select.date(),
+        'main_menu': i18n.back(),
         'days_for_booking': days_for_booking,
         'have_next': days_off < MAX_NUMBER_OF_DATES,
         'have_previous': days_off > DATES_ON_PAGE,
