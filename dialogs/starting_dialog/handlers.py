@@ -13,5 +13,5 @@ async def start_next_dialog(
         'booking_creation': BookingCreationSG,
         'booking_check': BookingCheckSG,
     }
-    state_group = id_next_sg.get(callback.id)
+    state_group = id_next_sg.get(widget.widget_id)
     await dialog_manager.start(state_group.main_page)
