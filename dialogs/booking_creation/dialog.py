@@ -18,6 +18,7 @@ from dialogs.booking_creation.getters import (
     select_time_getter,
     ask_name_getter,
     select_persons_getter,
+    confirm_booking_getter,
 )
 from dialogs.booking_creation.handlers import (
     change_page,
@@ -25,10 +26,12 @@ from dialogs.booking_creation.handlers import (
     incorrect_input,
     not_text_input,
     select_person,
+    confirm_booking,
 )
 from dialogs.booking_creation.states import BookingCreationSG
 from dialogs.booking_creation.handlers import select_date, select_time
 from dialogs.booking_creation import consts
+from dialogs.booking_creation.getters import success_booking_getter
 
 booking_creation = Dialog(
     Window(
@@ -66,7 +69,7 @@ booking_creation = Dialog(
             Select(
                 Format('{item[0]}'),
                 id='dates',
-                item_id_getter=lambda x: x[1],
+                item_id_getter=lambda x: x[0],
                 items='times_for_booking',
                 on_click=select_time,
             ),
@@ -121,14 +124,21 @@ booking_creation = Dialog(
         state=BookingCreationSG.select_persons_count,
         getter=select_persons_getter,
     ),
-    # Window(
-    #     Format('{confirm_booking_text}'),
-    #     Button(Format('{confirm}'), on_click=confirm_booking, id='click_yes'),
-    #     SwitchTo(
-    #         Format('{not_confirm}'),
-    #         state=BookingCreationSG.select_time,
-    #         id='click_not',
-    #     ),
-    #     state=BookingCreationSG.confirmation,
-    # ),
+    Window(
+        Format('{confirm_booking_text}'),
+        Button(Format('{confirm}'), on_click=confirm_booking, id='click_yes'),
+        SwitchTo(
+            Format('{not_confirm}'),
+            state=BookingCreationSG.select_persons_count,
+            id='click_not',
+        ),
+        state=BookingCreationSG.confirmation,
+        getter=confirm_booking_getter,
+    ),
+    Window(
+        Format('{success_booking_text}'),
+        Cancel(Format('{back_to_main_menu}'), id='back_to_main_menu'),
+        state=BookingCreationSG.success_booking,
+        getter=success_booking_getter,
+    ),
 )
