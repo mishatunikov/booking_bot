@@ -3,3 +3,5 @@
 .idea
 requirements-dev.txt
 requirements.txt
+*.db
+*.sqlite3
