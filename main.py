@@ -12,7 +12,9 @@ from fsm import storage
 from middlewares.outer import TranslatorRunnerMiddleware
 from utils.i18n import create_translator_hub
 from handlers.user_handlers import router as user_router
+
 from dialogs.booking_creation import booking_creation
+from dialogs.starting_dialog import starting_dialog
 
 logger = logging.getLogger(__name__)
 
@@ -39,7 +41,7 @@ async def main():
     )
 
     logger.info('Подключаем роутеры')
-    dp.include_routers(user_router, booking_creation)
+    dp.include_routers(user_router, starting_dialog, booking_creation)
     setup_dialogs(dp)
 
     logger.info('Подключаем миддлвари')
@@ -48,4 +50,5 @@ async def main():
     await dp.start_polling(bot)
 
 
-asyncio.run(main())
+if __name__ == '__main__':
+    asyncio.run(main())
