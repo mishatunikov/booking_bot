@@ -16,18 +16,6 @@ class TgBot:
 
 
 @dataclass
-class DataBase:
-    """
-    Класс DataBase. Содержит конфигурационные данные для работы с бд.
-
-    Attributes:
-        database_url: str
-    """
-
-    database_url: str
-
-
-@dataclass
 class Config:
     """
     Класс Config. Содержит конфигурационные данные для работы проекта.
@@ -38,7 +26,6 @@ class Config:
     """
 
     bot: TgBot
-    database: DataBase
 
 
 def load_config() -> Config:
@@ -53,5 +40,4 @@ def load_config() -> Config:
     env.read_env()
     return Config(
         bot=TgBot(bot_token=env('BOT_TOKEN')),
-        database=DataBase(database_url=env('DATABASE_URL')),
     )
