@@ -1,6 +1,13 @@
 from aiogram_dialog import Dialog, Window
 from aiogram_dialog.widgets.text import Format
-from aiogram_dialog.widgets.kbd import Row, Button, Cancel, Back
+from aiogram_dialog.widgets.kbd import (
+    Row,
+    Button,
+    Cancel,
+    Back,
+    SwitchTo,
+    Start,
+)
 
 from dialogs.booking_check.getters import (
     main_page_getter,
@@ -11,6 +18,7 @@ from dialogs.booking_check.handlers import (
     change_page,
     confirm_cancel,
     booking_cancel,
+    update_booking,
 )
 
 from dialogs.booking_check.states import BookingCheckSG
@@ -38,6 +46,12 @@ booking_check = Dialog(
                 id='next_booking',
                 when='have_next',
             ),
+        ),
+        Button(
+            Format('{update_booking}'),
+            id='update_booking',
+            on_click=update_booking,
+            when='booking_exist',
         ),
         Cancel(Format('{back}'), id='back_to_main_menu'),
         state=BookingCheckSG.main_page,
