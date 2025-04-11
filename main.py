@@ -10,6 +10,7 @@ from sqlalchemy.ext.asyncio import async_sessionmaker
 
 from config_data.config import Config, load_config
 from db.models.base import Base
+from dialogs.booking_check.dialog import booking_check
 from fsm import storage
 from middlewares.outer import (
     TranslatorRunnerMiddleware,
@@ -56,7 +57,9 @@ async def main():
     )
 
     logger.info('Подключаем роутеры')
-    dp.include_routers(user_router, starting_dialog, booking_creation)
+    dp.include_routers(
+        user_router, starting_dialog, booking_creation, booking_check
+    )
     setup_dialogs(dp)
 
     logger.info('Подключаем миддлвари')
