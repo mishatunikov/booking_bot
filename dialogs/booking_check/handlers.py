@@ -8,6 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from db.models import User, Reserve
 from dialogs.booking_check.states import BookingCheckSG
+from dialogs.booking_update.states import BookingUpdateSG
 
 
 async def change_page(
@@ -38,3 +39,17 @@ async def confirm_cancel(
     await session.delete(reserve)
     await session.commit()
     await dialog_manager.switch_to(BookingCheckSG.success_cancel_booking)
+
+
+async def update_booking(
+    callback: CallbackQuery, widget: Button, dialog_manager: DialogManager
+):
+    booking_info = dialog_manager.dialog_data.get('selected_booking_info')
+    booking_id = dialog_manager.dialog_data.get('selected_reverse_id')
+    await dialog_manager.start(
+        BookingUpdateSG.main_page,
+        data={
+            'selected_booking': booking_info,
+            'selected_booking_id': booking_id,
+        },
+    )
