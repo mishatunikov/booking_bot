@@ -1,6 +1,5 @@
 from datetime import datetime, timedelta
 
-from aiogram.types import User
 from aiogram_dialog import DialogManager
 from fluentogram import TranslatorRunner
 
@@ -9,7 +8,6 @@ from dialogs.booking_creation import consts
 
 async def select_date_getter(
     dialog_manager: DialogManager,
-    event_from_user: User,
     i18n: TranslatorRunner,
     **kwargs,
 ):
@@ -42,7 +40,6 @@ async def select_date_getter(
 
 async def select_time_getter(
     dialog_manager: DialogManager,
-    event_from_user: User,
     i18n: TranslatorRunner,
     **kwargs,
 ):
@@ -65,8 +62,6 @@ async def select_time_getter(
 
 
 async def ask_name_getter(
-    dialog_manager: DialogManager,
-    event_from_user: User,
     i18n: TranslatorRunner,
     **kwargs,
 ):
@@ -74,8 +69,6 @@ async def ask_name_getter(
 
 
 async def select_persons_getter(
-    dialog_manager: DialogManager,
-    event_from_user: User,
     i18n: TranslatorRunner,
     **kwargs,
 ):
@@ -89,7 +82,6 @@ async def select_persons_getter(
 
 async def confirm_booking_getter(
     dialog_manager: DialogManager,
-    event_from_user: User,
     i18n: TranslatorRunner,
     **kwargs,
 ):
@@ -104,8 +96,6 @@ async def confirm_booking_getter(
         persons_count=persons_count,
     )
 
-    print(i18n.booking.confirmation(booking_info=booking_info))
-
     return {
         'confirm_booking_text': i18n.booking.confirmation(
             booking_info=booking_info
@@ -116,8 +106,6 @@ async def confirm_booking_getter(
 
 
 async def success_booking_getter(
-    dialog_manager: DialogManager,
-    event_from_user: User,
     i18n: TranslatorRunner,
     **kwargs,
 ):
