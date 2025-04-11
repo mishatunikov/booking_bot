@@ -1,5 +1,5 @@
-from aiogram_dialog import Window, Dialog
-from aiogram_dialog.widgets.kbd import Row, Button, SwitchTo, Cancel
+from aiogram_dialog import Dialog, Window
+from aiogram_dialog.widgets.kbd import Button, Cancel, Row, SwitchTo
 from aiogram_dialog.widgets.text import Format
 
 from dialogs.booking_update.getters import update_booking_getter

@@ -1,16 +1,13 @@
-from aiogram.types import User
-
 from aiogram_dialog import DialogManager
 from fluentogram import TranslatorRunner
-from sqlalchemy.ext.asyncio import AsyncSession
 
-from db.models import User as UserModel, Reserve
+from db.models import Reserve
+from db.models import User as UserModel
 from dialogs.consts import PATTERN_DATE
 
 
 async def main_page_getter(
     dialog_manager: DialogManager,
-    event_from_user: User,
     i18n: TranslatorRunner,
     user: UserModel,
     **kwargs,
@@ -55,9 +52,7 @@ async def main_page_getter(
 
 async def confirm_cancel_getter(
     dialog_manager: DialogManager,
-    event_from_user: User,
     i18n: TranslatorRunner,
-    user: UserModel,
     **kwargs,
 ):
 
@@ -73,8 +68,6 @@ async def confirm_cancel_getter(
 
 
 async def success_cancel_getter(
-    dialog_manager: DialogManager,
-    event_from_user: User,
     i18n: TranslatorRunner,
     **kwargs,
 ):

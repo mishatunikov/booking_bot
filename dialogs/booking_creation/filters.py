@@ -1,6 +1,5 @@
-from aiogram.types import Message
-
 from aiogram.filters import BaseFilter
+from aiogram.types import Message
 
 from dialogs.booking_creation.consts import MAX_NAME_LENGTH
 

@@ -6,7 +6,7 @@ from aiogram_dialog.widgets.kbd import Button
 from fluentogram import TranslatorRunner
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from db.models import User, Reserve
+from db.models import Reserve, User
 from dialogs.booking_check.states import BookingCheckSG
 from dialogs.booking_update.states import BookingUpdateSG
 

@@ -4,8 +4,8 @@ from aiogram.types import CallbackQuery
 from aiogram_dialog import Dialog, DialogManager
 from aiogram_dialog.widgets.kbd import Button
 
-from dialogs.booking_creation.states import BookingCreationSG
 from dialogs.booking_check.states import BookingCheckSG
+from dialogs.booking_creation.states import BookingCreationSG
 
 
 async def start_next_dialog(
