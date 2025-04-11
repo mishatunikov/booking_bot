@@ -1,22 +1,37 @@
 from aiogram.enums import ContentType
 from aiogram_dialog import Dialog, Window
 from aiogram_dialog.widgets.input import MessageInput
-from aiogram_dialog.widgets.kbd import (Back, Button, Cancel, Group, Row,
-                                        Select, SwitchTo)
+from aiogram_dialog.widgets.kbd import (
+    Back,
+    Button,
+    Cancel,
+    Group,
+    Row,
+    Select,
+    SwitchTo,
+)
 from aiogram_dialog.widgets.text import Const, Format
 
 from dialogs.booking_creation import consts
 from dialogs.booking_creation.filters import CorrectInput
-from dialogs.booking_creation.getters import (ask_name_getter,
-                                              confirm_booking_getter,
-                                              select_date_getter,
-                                              select_persons_getter,
-                                              select_time_getter,
-                                              success_booking_getter)
-from dialogs.booking_creation.handlers import (change_page, confirm_booking,
-                                               correct_input, incorrect_input,
-                                               not_text_input, select_date,
-                                               select_person, select_time)
+from dialogs.booking_creation.getters import (
+    ask_name_getter,
+    confirm_booking_getter,
+    select_date_getter,
+    select_persons_getter,
+    select_time_getter,
+    success_booking_getter,
+)
+from dialogs.booking_creation.handlers import (
+    change_page,
+    confirm_booking,
+    correct_input,
+    incorrect_input,
+    not_text_input,
+    select_date,
+    select_person,
+    select_time,
+)
 from dialogs.booking_creation.states import BookingCreationSG
 
 booking_creation = Dialog(

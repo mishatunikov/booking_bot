@@ -2,11 +2,17 @@ from aiogram_dialog import Dialog, Window
 from aiogram_dialog.widgets.kbd import Back, Button, Cancel, Row
 from aiogram_dialog.widgets.text import Format
 
-from dialogs.booking_check.getters import (confirm_cancel_getter,
-                                           main_page_getter,
-                                           success_cancel_getter)
-from dialogs.booking_check.handlers import (booking_cancel, change_page,
-                                            confirm_cancel, update_booking)
+from dialogs.booking_check.getters import (
+    confirm_cancel_getter,
+    main_page_getter,
+    success_cancel_getter,
+)
+from dialogs.booking_check.handlers import (
+    booking_cancel,
+    change_page,
+    confirm_cancel,
+    update_booking,
+)
 from dialogs.booking_check.states import BookingCheckSG
 
 booking_check = Dialog(
