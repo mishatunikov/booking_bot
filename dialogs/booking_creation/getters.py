@@ -98,11 +98,17 @@ async def confirm_booking_getter(
     reserved_time = dialog_manager.dialog_data.get('reserved_time')
     persons_count = dialog_manager.dialog_data.get('person_count')
 
+    booking_info = i18n.booking.information(
+        name=name,
+        date=f'{reserved_data} {reserved_time}',
+        persons_count=persons_count,
+    )
+
+    print(i18n.booking.confirmation(booking_info=booking_info))
+
     return {
         'confirm_booking_text': i18n.booking.confirmation(
-            name=f'<b>{name}</b>',
-            date=f'<b>{reserved_data} {reserved_time}</b>',
-            persons_count=f'<b>{persons_count}</b>',
+            booking_info=booking_info
         ),
         'not_confirm': i18n.click.no(),
         'confirm': i18n.click.yes(),

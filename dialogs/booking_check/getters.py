@@ -24,12 +24,12 @@ async def main_page_getter(
     if booking_exist:
         reserve: Reserve = reserves[booking_number]
         booking_info = i18n.booking.information(
-            date=f'<b>{reserve.reservation_time.strftime(PATTERN_DATE)}</b>',
-            name=f'<b>{reserve.reservation_name}</b>',
-            persons_count=f'<b>{reserve.person_count}</b>',
+            date=f'{reserve.reservation_time.strftime(PATTERN_DATE)}',
+            name=f'{reserve.reservation_name}',
+            persons_count=f'{reserve.person_count}',
         )
         booking_detail_info = i18n.booking.detail.view(
-            counter=f'<b>{booking_number + 1}/{len(reserves)}</b>',
+            counter=f'{booking_number + 1}/{len(reserves)}',
             booking_info=booking_info,
         )
         dialog_manager.dialog_data.update(

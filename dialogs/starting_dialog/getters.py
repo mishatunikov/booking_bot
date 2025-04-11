@@ -15,7 +15,7 @@ async def introduction_getter(
 
     menu_text = i18n.main.menu(
         start_data=text_selection,
-        name=f'<b>{event_from_user.first_name}</b>',
+        name=event_from_user.first_name,
     )
 
     return {
