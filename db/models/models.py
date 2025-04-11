@@ -20,8 +20,11 @@ class User(Base):
     username: Mapped[str | None]
     is_active: Mapped[bool] = mapped_column(default=True)
     created_at: Mapped[datetime] = mapped_column(server_default=func.now())
-    reserves: Mapped[list["Reserve"]] = relationship(
-        back_populates="user", lazy="selectin", cascade="all, delete-orphan"
+    reserves: Mapped[list['Reserve']] = relationship(
+        back_populates='user',
+        lazy='selectin',
+        cascade='all, delete-orphan',
+        order_by='Reserve.reservation_time',
     )
 
     def __str__(self):
