@@ -5,5 +5,5 @@ fluentogram
 redis
 environs
 sqlalchemy
-asyncpg
+aiosqlite
 environs
