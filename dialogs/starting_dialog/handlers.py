@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from aiogram.types import CallbackQuery
 from aiogram_dialog import Dialog, DialogManager
 from aiogram_dialog.widgets.kbd import Button

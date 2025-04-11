@@ -1,6 +1,6 @@
 from aiogram_dialog import Dialog, Window
-from aiogram_dialog.widgets.kbd import Button, Row
-from aiogram_dialog.widgets.text import Const, Format
+from aiogram_dialog.widgets.kbd import Button
+from aiogram_dialog.widgets.text import Format
 
 from dialogs.starting_dialog.getters import introduction_getter
 from dialogs.starting_dialog.handlers import start_next_dialog
