@@ -17,7 +17,6 @@ async def main_page_getter(
 ):
     reserves = user.reserves
     booking_exist = bool(reserves)
-    booking_not_exist = not booking_exist
     booking_number = dialog_manager.start_data.get('booking_number')
     booking_info = booking_detail_info = None
 
@@ -50,6 +49,7 @@ async def main_page_getter(
         'have_previous': booking_number,
         'booking_exist': booking_exist,
         'back': i18n.back(),
+        'update_booking': i18n.change.booking(),
     }
 
 
