@@ -22,6 +22,7 @@ from handlers.user_handlers import router as user_router
 
 from dialogs.booking_creation import booking_creation
 from dialogs.starting_dialog import starting_dialog
+from dialogs.booking_update import booking_update
 from db.connection import engine
 
 logger = logging.getLogger(__name__)
@@ -58,7 +59,11 @@ async def main():
 
     logger.info('Подключаем роутеры')
     dp.include_routers(
-        user_router, starting_dialog, booking_creation, booking_check
+        user_router,
+        starting_dialog,
+        booking_creation,
+        booking_check,
+        booking_update,
     )
     setup_dialogs(dp)
 
