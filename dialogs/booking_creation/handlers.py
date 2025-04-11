@@ -9,6 +9,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from dialogs.booking_creation.states import BookingCreationSG
 from db.models import Reserve, User
+from dialogs.consts import PATTERN_DATE
 
 
 async def change_page(
@@ -94,7 +95,7 @@ async def confirm_booking(
     user: User = dialog_manager.middleware_data.get('user')
     reservation_datetime = datetime.strptime(
         f'{dialog_manager.dialog_data.get('reserved_date')} {dialog_manager.dialog_data.get('reserved_time')}',
-        '%Y-%m-%d %H:%M',
+        PATTERN_DATE,
     )
     session.add(
         Reserve(
