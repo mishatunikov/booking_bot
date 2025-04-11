@@ -1,0 +1,14 @@
+volumes:
+  db_data:
+
+services:
+  redis:
+    image: redis
+
+  bot:
+    build: ./
+    env_file: .env
+    depends_on:
+      - redis
+    volumes:
+      - db_data:/database
