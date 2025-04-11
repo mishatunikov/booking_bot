@@ -5,8 +5,6 @@ from aiogram_dialog.widgets.kbd import (
     Button,
     Cancel,
     Back,
-    SwitchTo,
-    Start,
 )
 
 from dialogs.booking_check.getters import (
@@ -15,7 +13,6 @@ from dialogs.booking_check.getters import (
     success_cancel_getter,
 )
 from dialogs.booking_check.handlers import (
-    change_page,
     confirm_cancel,
     booking_cancel,
     update_booking,
