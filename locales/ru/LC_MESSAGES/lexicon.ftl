@@ -67,3 +67,8 @@ booking-cancel-confirm =
 
 success-booking-cancel =
     Ваша бронь успешно отменена ✔
+
+process-change-booking =
+    { $booking_info }
+
+    <b>Что бы вы хотели изменить в бронировании❓</b>
