@@ -1,1 +1,3 @@
 PATTERN_DATE = '%Y-%m-%d %H:%M'
+TIME_OPEN = 10
+TIME_CLOSE = 21
