@@ -9,21 +9,20 @@ from fluentogram import TranslatorHub
 from sqlalchemy.ext.asyncio import async_sessionmaker
 
 from config_data.config import Config, load_config
+from db.connection import engine
 from db.models.base import Base
 from dialogs.booking_check.dialog import booking_check
+from dialogs.booking_creation import booking_creation
+from dialogs.booking_update import booking_update
+from dialogs.starting_dialog import starting_dialog
 from fsm import storage
+from handlers.user_handlers import router as user_router
 from middlewares.outer import (
-    TranslatorRunnerMiddleware,
-    TrackUserMiddleware,
     DbSessionMiddleware,
+    TrackUserMiddleware,
+    TranslatorRunnerMiddleware,
 )
 from utils.i18n import create_translator_hub
-from handlers.user_handlers import router as user_router
-
-from dialogs.booking_creation import booking_creation
-from dialogs.starting_dialog import starting_dialog
-from dialogs.booking_update import booking_update
-from db.connection import engine
 
 logger = logging.getLogger(__name__)
 

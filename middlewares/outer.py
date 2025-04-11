@@ -1,13 +1,13 @@
-from typing import Callable, Awaitable, Dict, Any
+from typing import Any, Awaitable, Callable, Dict
 
-from aiogram.types import TelegramObject, Message
 from aiogram import BaseMiddleware
+from aiogram.types import Message, TelegramObject
 from cachetools import TTLCache
 from fluentogram import TranslatorHub
 from sqlalchemy.ext.asyncio import async_sessionmaker
 
-from db.models.models import User
 from db.crud import create_or_update_user
+from db.models.models import User
 
 
 class TranslatorRunnerMiddleware(BaseMiddleware):
@@ -25,6 +25,7 @@ class TranslatorRunnerMiddleware(BaseMiddleware):
 
 
 class DbSessionMiddleware(BaseMiddleware):
+
     def __init__(self, session_pool: async_sessionmaker):
         self.session_pool = session_pool
 
@@ -40,6 +41,7 @@ class DbSessionMiddleware(BaseMiddleware):
 
 
 class TrackUserMiddleware(BaseMiddleware):
+
     def __init__(self):
         super().__init__()
         self.cache = TTLCache(maxsize=1000, ttl=60 * 60 * 6)
