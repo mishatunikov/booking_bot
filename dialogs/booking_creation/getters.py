@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 
+import pytz
 from aiogram_dialog import DialogManager
 from fluentogram import TranslatorRunner
 
@@ -47,7 +48,7 @@ async def select_time_getter(
 ):
     page = dialog_manager.start_data.get('times_page')
     start_range_time = consts.TIME_OPEN
-    current_hour = datetime.now().hour
+    current_hour = datetime.now(pytz.timezone('Europe/Moscow')).hour
     reserved_date = datetime.strptime(
         dialog_manager.dialog_data.get('reserved_date'), consts.DATE_PATTERN
     )
@@ -59,14 +60,14 @@ async def select_time_getter(
     buttons_ids = [
         (f'{time}:00', time)
         for time in range(start_range_time, consts.TIME_CLOSE)
-    ]
+    ][page * consts.TIMES_ON_PAGE : (page + 1) * consts.TIMES_ON_PAGE]
+    print(current_hour)
     return {
         'select_time_text': i18n.booking.creation.select.time(),
         'back': i18n.back(),
         'times_for_booking': buttons_ids,
-        'have_next': buttons_ids[-1][1] + consts.TIMES_ON_PAGE
-        < consts.TIME_CLOSE,
-        'have_previous': all(
+        'have_next': buttons_ids[-1][1] + 1 < consts.TIME_CLOSE,
+        'have_previous': any(
             [
                 buttons_ids[0][1] - consts.TIMES_ON_PAGE >= consts.TIME_OPEN,
                 buttons_ids[0][1] > current_hour + 1,
